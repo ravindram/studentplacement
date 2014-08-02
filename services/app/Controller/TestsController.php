@@ -7,13 +7,6 @@ class TestsController extends AppController {
     }
 
     public function index() {
-<<<<<<< HEAD
-        $tests = $this->Test->find('all');
-        $this->set(array(
-            'tests' => $tests,
-            '_serialize' => array('tests')
-        ));
-=======
         $tests = $this->Test->find('all',array('fields'=>array('id','test','test_time','test_duration')));
         $Tests=array();
         foreach ($tests as $test) {
@@ -25,7 +18,6 @@ class TestsController extends AppController {
             '_serialize' => array('tests')
         ));
         unset($Tests);
->>>>>>> 4c2649b073355a9ed3289f416176bca4d813ad11
     }
     public function view($id) {
         $test = $this->Test->findById($id);
@@ -75,4 +67,3 @@ class TestsController extends AppController {
         ));
     }
 }
-?>
