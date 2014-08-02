@@ -1,5 +1,6 @@
 <?php
   class UsersController extends AppController {
+<<<<<<< HEAD
 
     var $uses = array('User','College','Candidate');
     
@@ -29,6 +30,15 @@ public function register(){
 
 public function login() {
 
+=======
+    var $uses = array('User','College','Candidate');
+    function beforeFilter(){
+        parent::beforeFilter();
+        $this->Auth->allow('login', 'logout','index');
+    }
+    public function login() {
+        $data=$this->request->input('json_decode', true);
+>>>>>>> 4c2649b073355a9ed3289f416176bca4d813ad11
         $valid_login = false;
         $user = $this->Auth->user();
         if ($user) {
@@ -46,6 +56,10 @@ public function login() {
                 $password = Security::hash(Configure::read('Security.salt') . $this->data['User']['password']);
                 $user_details = $this->User->find('first', array('conditions' => array('User.email' => $email, 'User.password' => $password), 'recursive' => -1));
                 if ($user_details) {
+<<<<<<< HEAD
+=======
+
+>>>>>>> 4c2649b073355a9ed3289f416176bca4d813ad11
                     if (empty($user_details['is_active'])) {
                         $message="error";
                     }
@@ -56,6 +70,7 @@ public function login() {
                 $valid_login = true;
             }
             else {
+<<<<<<< HEAD
             $message="Invalid login";
         }
         }
@@ -76,6 +91,27 @@ public function login() {
     public function index() {
 
         $users = $this->User->find('all');
+=======
+                $message="Invalid login";
+            }
+        } 
+        /**if ($valid_login == true) {
+            
+            $this->get_details();
+            
+        }*/
+        $this->set(array('message' => $message, '_serialize' => array('message')));
+    }
+    public function logout() {
+        if($this->Auth->logout()){
+            $message="logout sucess";
+        }
+        $this->set(array('message' => $message, '_serialize' => array('message')));  
+    }   
+
+    public function index() {
+        $users = $this->User->find('all',array('fields'=>array('id','name','email')));
+>>>>>>> 4c2649b073355a9ed3289f416176bca4d813ad11
         $this->set(array(
             'users' => $users,
             '_serialize' => array('users')

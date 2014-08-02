@@ -6,6 +6,7 @@ class TestQuestionsController extends AppController{
         $this->Auth->allow('add','index');
     }
 
+<<<<<<< HEAD
     public function index() {
         $id=54;
 
@@ -17,12 +18,29 @@ class TestQuestionsController extends AppController{
             $question=$testQuestion['Question'];
             //unset($question['answer']);
             array_splice($question, 6, 6);
+=======
+    public function index($id) {
+        $testQuestions = $this->TestQuestion->find('all',array('conditions'=>array('test_id'=>$id))); 
+        $test=$testQuestions[0]['Test'];
+        $testquestion=array();
+        $test=$test['test'];
+        array_push($testquestion,$test);
+        foreach ($testQuestions as $testQuestion) {
+            $question=$testQuestion['Question'];
+            //unset($question['answer']);
+            array_splice($question, 6, 5);
+>>>>>>> 4c2649b073355a9ed3289f416176bca4d813ad11
             array_push($testquestion,$question);
         }
         $this->set(array(
         'testquestion' => $testquestion,
         '_serialize' => array('testquestion')
+<<<<<<< HEAD
         ));   
+=======
+        ));  
+        unset($testquestion);
+>>>>>>> 4c2649b073355a9ed3289f416176bca4d813ad11
     }
     public function view($id) {
         $testQuestion = $this->TestQuestion->findById($id);
@@ -41,6 +59,11 @@ class TestQuestionsController extends AppController{
             array_push($no,$value['no']);
             array_push($id_category,$value['category_id']);
         }
+<<<<<<< HEAD
+=======
+        print_r($no);
+        print_r($id_category); 
+>>>>>>> 4c2649b073355a9ed3289f416176bca4d813ad11
         $this->Test->create();
         if($this->Test->save($test)){
             $id=$this->Test->getLastInsertId();
@@ -49,7 +72,11 @@ class TestQuestionsController extends AppController{
                 for($j=1;$j<=5;$j++){
                     $que=array();
                     foreach ($questions as $question) {
+<<<<<<< HEAD
                         if($question['Question']['category_id']==$id_category[$i] && $question['Question']['DIFFICULTY_LEVEL']==$j){
+=======
+                        if($question['Question']['category_id']==$id_category[$i] && $question['Question']['difficulty_level']==$j){
+>>>>>>> 4c2649b073355a9ed3289f416176bca4d813ad11
                             array_push($que,$question['Question']['id']);
                         }
                     } 
@@ -60,6 +87,7 @@ class TestQuestionsController extends AppController{
                         $testquestion['test_id']=$id;
                         $testquestion['question_id']=$que[$k];
                         $this->TestQuestion->save($testquestion);
+<<<<<<< HEAD
                     }      
                 }
             }   
@@ -69,6 +97,18 @@ class TestQuestionsController extends AppController{
         $this->set(array(
         'testQuestion' => $testQuestion,
         '_serialize' => array('TestQuestion')
+=======
+                    }     
+                }
+            }   
+        }
+        $id=$this->Test->getLastInsertId();
+        $testQuestion=$this->TestQuestion->find('all', array('conditions'=>array('test_id'=>$id)));
+        
+        $this->set(array(
+        'testQuestion' => $testQuestion,
+        '_serialize' => array('testQuestion')
+>>>>>>> 4c2649b073355a9ed3289f416176bca4d813ad11
         ));
     }
 

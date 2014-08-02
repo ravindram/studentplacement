@@ -22,12 +22,20 @@ class User extends AppModel{
 		)
 		);
 
+<<<<<<< HEAD
 	/**public function beforeSave($options = array()) {
+=======
+	public function beforeSave($options = array()) {
+>>>>>>> 4c2649b073355a9ed3289f416176bca4d813ad11
         if (isset($this->data[$this->alias]['password'])) {
         	$this->data[$this->alias]['password'] = AuthComponent::password($this->data[$this->alias]['password']);
     	}
     	return true;
 	}
+<<<<<<< HEAD
 */
+=======
+
+>>>>>>> 4c2649b073355a9ed3289f416176bca4d813ad11
 }
 ?>
