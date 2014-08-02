@@ -1,29 +1,11 @@
 <?php
 class CandidatesController extends AppController{
-<<<<<<< HEAD
-	var $uses = array('User','College','Candidate');
-	public function beforeFilter() {
-	parent::beforeFilter();
-	$this->Auth->allow('add','index', 'login', 'logout');
-	}
-	public function login() {
-		if ($this->request->is('post')) {
-		$this->Auth->login();
-		}
-	}
-	public function logout() {
-		$this->Auth->logout();
-	}   
-	public function index(){
-		$candidates = $this->Candidate->find('all');
-		$this->set(array('candidates' => $candidates, '_serialize' => array('candidates')));
-	}
-=======
 	var $uses = array('User','College','Candidate','ExcelReader');
 	public $components = array('ExcelReader','RequestHandler');
+	
 	public function beforeFilter() {
-	parent::beforeFilter();
-	$this->Auth->allow('index', 'add');
+		parent::beforeFilter();
+		$this->Auth->allow('index', 'add');
 	}
 	
 	public function index(){
@@ -36,14 +18,12 @@ class CandidatesController extends AppController{
 	    unset($Candidates);
 	}
 	
->>>>>>> 4c2649b073355a9ed3289f416176bca4d813ad11
 	public function view($id) {
 		$candidate = $this->Candidate->findById($id);
 		$this->set(array('candidate' =>$candidate, '_serialize' => array('candidate')));
 	}
+
 	public function add() {
-<<<<<<< HEAD
-=======
 		$filename = "wordfrequency.xls";
 		//print_r(WWW_ROOT ); die;
 		
@@ -65,7 +45,6 @@ class CandidatesController extends AppController{
 	    }
 		}die;
 	    $this->set(array('candidates' => $data_array, '_serialize' => 'candidates'));die;
->>>>>>> 4c2649b073355a9ed3289f416176bca4d813ad11
 		$data=$this->request->input('json_decode',true);
 		$candidate=$data["Candidate"];
 		$user=$data['User'];
@@ -74,10 +53,7 @@ class CandidatesController extends AppController{
 			$id=$this->User->getLastInsertId(); 
 			$this->Candidate->create();
 			$candidate['user_id']=$id;
-<<<<<<< HEAD
-=======
 			$candidate['candidate']=1;
->>>>>>> 4c2649b073355a9ed3289f416176bca4d813ad11
 			$this->Candidate->save($candidate);
 			$id_candidate=$this->Candidate->getLastInsertId(); 
 			$message = $this->Candidate->findById($id_candidate);
@@ -108,5 +84,4 @@ class CandidatesController extends AppController{
 		}
 		$this->set(array('message' => $message, '_serialize' =>array('message')));
 	}
-	}
-	?>
+}
