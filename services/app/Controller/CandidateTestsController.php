@@ -2,11 +2,7 @@
 class CandidateTestsController extends AppController{
 	public function beforeFilter() {
 	    parent::beforeFilter();
-<<<<<<< HEAD
-	    $this->Auth->allow('add','index', 'login', 'logout');
-=======
 	    $this->Auth->allow('add','index', 'edit', 'login', 'logout');
->>>>>>> 4c2649b073355a9ed3289f416176bca4d813ad11
 	}
 	public function index(){
 		$candidateTests = $this->CandidateTest->find('all');
@@ -17,6 +13,7 @@ class CandidateTestsController extends AppController{
 		$candidateTest = $this->CandidateTest->findById($id);
 		$this->set(array('candidateTest' =>$candidateTest, '_serialize' => array('candidateTest')));
 	}
+	
 	public function add() {
 		if ($this->CandidateTest->save($this->request->data)) {
 			$message = array('text' => _('Saved'), 'type' => 'success');
