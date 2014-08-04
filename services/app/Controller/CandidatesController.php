@@ -23,7 +23,8 @@ class CandidatesController extends AppController{
 	}
 
 	public function add() {
-		$filename = "wordfrequency.xls";		
+		$filename = "wordfrequency.xls";
+		print_r($filename)	; die;	
 		$file = WWW_ROOT. $filename;  
 	    $this->set('filename', $file);  
 	    try {  
@@ -32,6 +33,7 @@ class CandidatesController extends AppController{
 	       echo 'Exception occured while loading the project list file';  
 	       exit;  
 	    } 
+	    print_r($data_array); die;
 	    for($i=0;$i<count($data_array);$i++){
 	    	for($j=1;$j<count($data_array[$i]);$j++){
 	    	$candidate=$data_array[$i][$j];
