@@ -15,7 +15,6 @@ class CandidatesController extends AppController{
 	    	array_push($Candidates,$candidate['Candidate']);
 	    }
 	    $this->set(array('candidates' => $Candidates, '_serialize' => 'candidates'));
-	    unset($Candidates);
 	}
 	
 	public function view($id) {
