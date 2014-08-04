@@ -10,12 +10,11 @@ class CandidatesController extends AppController{
 	
 	public function index(){
 		$candidates = $this->Candidate->find('all',array('fields'=>array('id','user_id','college_id','roll_number','batch','department')));
-	    $Candidates=array();die;
+	    $Candidates=array();
 	    foreach ($candidates as $candidate) {
 	    	array_push($Candidates,$candidate['Candidate']);
 	    }
 	    $this->set(array('candidates' => $Candidates, '_serialize' => 'candidates'));
-	    unset($Candidates);
 	}
 	
 	public function view($id) {
