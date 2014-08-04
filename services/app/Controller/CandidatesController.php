@@ -10,7 +10,7 @@ class CandidatesController extends AppController{
 	
 	public function index(){
 		$candidates = $this->Candidate->find('all',array('fields'=>array('id','user_id','college_id','roll_number','batch','department')));
-	    $Candidates=array();
+	    $Candidates=array();die;
 	    foreach ($candidates as $candidate) {
 	    	array_push($Candidates,$candidate['Candidate']);
 	    }
