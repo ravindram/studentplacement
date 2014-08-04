@@ -10,7 +10,7 @@ class CandidatesController extends AppController{
 	
 	public function index(){
 		$candidates = $this->Candidate->find('all',array('fields'=>array('id','user_id','college_id','roll_number','batch','department')));
-	    $Candidates=array();die;
+	    $Candidates=array();
 	    foreach ($candidates as $candidate) {
 	    	array_push($Candidates,$candidate['Candidate']);
 	    }
@@ -23,9 +23,7 @@ class CandidatesController extends AppController{
 	}
 
 	public function add() {
-		$filename = "wordfrequency.xls";
-		//print_r(WWW_ROOT ); die;
-		
+		$filename = "wordfrequency.xls";		
 		$file = WWW_ROOT. $filename;  
 	    $this->set('filename', $file);  
 	    try {  
@@ -33,8 +31,7 @@ class CandidatesController extends AppController{
 	    } catch (Exception $e) {  
 	       echo 'Exception occured while loading the project list file';  
 	       exit;  
-	    }   
-	    print_r($data_array); die;
+	    } 
 	    for($i=0;$i<count($data_array);$i++){
 	    	for($j=1;$j<count($data_array[$i]);$j++){
 	    	$candidate=$data_array[$i][$j];
@@ -42,7 +39,7 @@ class CandidatesController extends AppController{
 	    		print_r($candidate[$k]);
 	    }
 	    }
-		}die;
+		}
 	    $this->set(array('candidates' => $data_array, '_serialize' => 'candidates'));die;
 		$data=$this->request->input('json_decode',true);
 		$candidate=$data["Candidate"];
