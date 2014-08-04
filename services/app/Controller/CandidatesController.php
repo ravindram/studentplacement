@@ -22,8 +22,7 @@ class CandidatesController extends AppController{
 		$this->set(array('candidate' =>$candidate, '_serialize' => array('candidate')));
 	}
 
-	public function add() {
-		$filename = "wordfrequency.xls";
+	public function add($filename) {
 		$file = WWW_ROOT. $filename;  
 	    $this->set('filename', $file);  
 	    try {  
