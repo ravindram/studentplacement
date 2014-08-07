@@ -24,7 +24,6 @@ class CollegesController extends AppController{
 		$data=$this->request->input('json_decode',true);
         $college=$data["College"];
         $user=$data['User'];
-        print_r($college=$data["College"]); 
         $this->User->create();
         if($this->User->save($user)){
 	        $id=$this->User->getLastInsertId(); 
