@@ -16,14 +16,15 @@ class CollegesController extends AppController{
 		unset($Colleges);
 	}
 
-	public function admin_view($id) {
+	public function view($id) {
 		$college = $this->College->findById($id);
 		$this->set(array('college' =>$college, '_serialize' => array('college')));
 	}
-	public function admin_add() {
+	public function add() {
 		$data=$this->request->input('json_decode',true);
         $college=$data["College"];
         $user=$data['User'];
+        print_r($college=$data["College"]); die;
         $this->User->create();
         if($this->User->save($user)){
 	        $id=$this->User->getLastInsertId(); 
