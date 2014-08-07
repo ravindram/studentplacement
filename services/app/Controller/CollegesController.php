@@ -39,7 +39,7 @@ class CollegesController extends AppController{
 		$this->set(array('message' => $message, '_serialize' => array('message')));
 	}
 
-	public function admin_edit($id) {
+	public function edit($id) {
 		$this->College->id = $id;
 		if ($this->College->save($this->request->data)) {
 			$message = array('text' => _('Saved'), 'type' => 'success');
@@ -50,7 +50,7 @@ class CollegesController extends AppController{
 		$this->set(array('message' => $message, '_serialize' => array('message')));
 	}
 
-	public function admin_delete($id) {
+	public function delete($id) {
 		if ($this->College->delete($id)) {
 			$message = array('text' => _('Deleted'), 'type' =>'success');
 		} 
