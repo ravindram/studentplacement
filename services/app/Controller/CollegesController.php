@@ -4,7 +4,7 @@ class CollegesController extends AppController{
 	
 	public function beforeFilter() {
 	    parent::beforeFilter();
-	    $this->Auth->allow('add','index','edit');
+	    $this->Auth->allow('add','index');
 	}
 	public function index(){
 		$colleges = $this->College->find('all',array('fields'=>array('id','college_name','college_address','college_city''college_contactno')));

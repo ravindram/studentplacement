@@ -8,7 +8,7 @@ public function beforeFilter() {
 }
 
     public function index() {
-        $questions = $this->Question->find('all', array('fields'=>array('id','question','option1','option2','option3','option4','category_id')));
+        $questions = $this->Question->find('all', array('fields'=>array('id','question','option1','option2','option3','option4','category_id','answer')));
         $Questions=array();
         foreach ($questions as $question) {
             array_push($Questions,$question['Question']);
