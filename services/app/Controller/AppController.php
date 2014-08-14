@@ -20,6 +20,7 @@
  */
 
 App::uses('Controller', 'Controller');
+App::uses('CakeEmail', 'Network/Email');
 
 /**
  * Application Controller
@@ -42,4 +43,26 @@ class AppController extends Controller {
             )
         )
     );
+    function _sendEmail($data){
+  try{
+   $data['content']['url'] = $this->appConfigurations['client_url'];
+   $data['content']['file_repository_url'] = $this->appConfigurations['fileRepositoryHttpPath'];
+   $email = new CakeEmail('default');
+   if($email->template($data['template'])
+     ->emailFormat('html')
+     ->to($data['to'])
+     ->subject($data['subject'])
+     ->from('ravindranth@mantralabsglobal.com','Vino Finder')
+     ->viewVars($data['content'])
+     ->send()){
+    return true;
+   }else{
+    return false;
+   }
+  }catch(Exception $e){
+   print_r($e->getMessage());
+   print_r($e->getTraceAsString());
+   return false;
+  }
+ }
 }

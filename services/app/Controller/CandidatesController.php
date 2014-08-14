@@ -5,9 +5,19 @@ class CandidatesController extends AppController{
 	
 	public function beforeFilter() {
 		parent::beforeFilter();
-		$this->Auth->allow('index', 'add');
+		$this->Auth->allow('index', 'add', 'sendmail');
 	}
-	
+	public function sendmail(){
+		$email['to'] = $this->request->data['Candidate']['email'];
+		$email['template'] =  'default';
+		$email['subject'] = 'Sign up Confirmation';
+		$email['content'] = array('user_name'=>$this->request->data['Candidate']['name']);
+		$this->output = "success";
+		if(!$this->_sendEmail($email)){
+			$this->Candidate->id = $user_id;
+			$this->Candidate->saveField('sent_mail_status', 0);
+		}
+	}
 	public function index(){
 		$candidates = $this->Candidate->find('all',array('fields'=>array('id','user_id','college_id','roll_number','batch','department')));
 	    $Candidates=array();
@@ -22,7 +32,7 @@ class CandidatesController extends AppController{
 		$this->set(array('candidate' =>$candidate, '_serialize' => array('candidate')));
 	}
 
-	public function add($filename) {
+	public function add() {
 		$file = WWW_ROOT. $filename;  
 	    $this->set('filename', $file);  
 	    try {  
@@ -33,11 +43,11 @@ class CandidatesController extends AppController{
 	    } 
 	    for($i=0;$i<count($data_array);$i++){
 	    	for($j=1;$j<count($data_array[$i]);$j++){
-	    	$candidate=$data_array[$i][$j];
-	    	for($k=0;$k<count($candidate);$k++){
-	    		print_r($candidate[$k]);
-	    }
-	    }
+		    	$candidate=$data_array[$i][$j];
+		    	for($k=0;$k<count($candidate);$k++){
+		    		print_r($candidate[$k]); die;
+		    	}
+		    }
 		}
 	    $this->set(array('candidates' => $data_array, '_serialize' => 'candidates'));die;
 		$data=$this->request->input('json_decode',true);

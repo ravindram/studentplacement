@@ -3,24 +3,26 @@ class TestQuestionsController extends AppController{
     var $uses = array('Question','TestQuestion', 'Test');
     public function beforeFilter() {
         parent::beforeFilter();
-        $this->Auth->allow('add','index');
+        $this->Auth->allow('add','index','view');
     }
 
     public function index($id) {
-        $testQuestions = $this->TestQuestion->find('all',array('conditions'=>array('test_id'=>$id))); 
-        $test=$testQuestions[0]['Test'];
-        $testquestion=array();
-        $test=$test['test'];
-        array_push($testquestion,$test);
+        $testQuestions = $this->TestQuestion->find('all',array('conditions'=>array('TestQuestion.test_id'=>$id))); 
+        $Test=$testQuestions[0]['Test'];
+        $questions=array();
+        $test=array();
+        array_push($test,$Test['id']);
+        array_push($test,$Test['test']);
+        array_push($test,$Test['test_duration']);
         foreach ($testQuestions as $testQuestion) {
             $question=$testQuestion['Question'];
-            //unset($question['answer']);
             array_splice($question, 6, 5);
-            array_push($testquestion,$question);
+            array_push($questions,$question);
         }
+        $TestQuestions=array("Test"=>$test,"Questions"=>$questions);
         $this->set(array(
-        'testquestion' => $testquestion,
-        '_serialize' => array('testquestion')
+        'TestQuestions' => $TestQuestions,
+        '_serialize' => array('TestQuestions')
         ));  
         unset($testquestion);
     }
