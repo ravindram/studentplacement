@@ -7,7 +7,7 @@ class CollegesController extends AppController{
 	    $this->Auth->allow('add','index');
 	}
 	public function index(){
-		$colleges = $this->College->find('all',array('fields'=>array('id','college_name','college_address','college_city''college_contactno')));
+		$colleges = $this->College->find('all',array('fields'=>array('id','college_name','college_address','college_city','college_contactno')));
 		$Colleges=array();
 		foreach ($colleges as $college) {
 			array_push($Colleges,$college['College']);
@@ -24,13 +24,27 @@ class CollegesController extends AppController{
 		$data=$this->request->input('json_decode',true);
         $college=$data["College"];
         $user=$data['User'];
+        $chars = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+		$count = mb_strlen($chars);
+
+	    for ($l = 0, $result = ''; $l < 8; $l++) {
+	        $index = rand(0, $count - 1);
+	        $result .= mb_substr($chars, $index, 1);
+	    }
+	    $user['password']=$result;
         $this->User->create();
         if($this->User->save($user)){
 	        $id=$this->User->getLastInsertId(); 
 	        $this->College->create();
 	        $college['user_id']=$id;
 	        $college['college']=1;
-	        $this->College->save($college);
+	        if($this->College->save($college)){
+	        	$email['to'] = $user['email'];
+				$email['template'] =  'default';
+				$email['subject'] = 'Sign up Confirmation';
+				$email['content'] = array('user'=>array('user_name'=>$user['name'],"password"=>$result));
+				$this->_sendEmail($email);
+	        }
 	        $message = $this->User->findById($id);
     	}
     	else  {
