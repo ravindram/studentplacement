@@ -1,6 +1,6 @@
 <?php
 class CandidatesController extends AppController{
-	var $uses = array('User','College','Candidate','ExcelReader');
+	var $uses = array('User','College','Candidate','ExcelReader','CandidateList');
 	public $components = array('ExcelReader','RequestHandler','Security');
 	public $layout = 'homepage';            
     function blackhole() {       
@@ -63,6 +63,10 @@ class CandidatesController extends AppController{
 	       echo 'Exception occured while loading the project list file';  
 	       exit;  
 	    } 
+	    $this->CandidateList->create();
+	    $candidatelist['list_name']=$filename;
+		$this->CandidateList->save($candidatelist);
+		$list_id=$this->CandidateList->getLastInsertId();
 	    for($i=0;$i<count($data_array);$i++){
 	    	for($j=1;$j<count($data_array[$i]);$j++){
 		    	$details=$data_array[$i][$j];
@@ -82,6 +86,7 @@ class CandidatesController extends AppController{
 		    		$id=$this->User->getLastInsertId();
 		    		$candidate['user_id']=$id;
 					$candidate['college_id']=$college_id;
+					$candidate['candidate_list_id']=$list_id;
 					$candidate['roll_number']=$details['2'];
 					$candidate['batch']=$details['3'];
 					$candidate['department']=$details['4'];

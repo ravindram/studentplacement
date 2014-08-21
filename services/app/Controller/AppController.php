@@ -52,7 +52,7 @@ class AppController extends Controller {
      ->emailFormat('html')
      ->to($data['to'])
      ->subject($data['subject'])
-     ->from('ravindranth@mantralabsglobal.com','Vino Finder')
+     ->from('ravindranth@mantralabsglobal.com','confermation mail')
      ->viewVars($data['content'])
      ->send()){
     return true;

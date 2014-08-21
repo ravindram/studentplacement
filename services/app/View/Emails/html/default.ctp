@@ -17,9 +17,8 @@
  */
 ?>
 <?php
-$content = explode("\n", $content);
+	echo  "hello ".$user['user_name']."<br>";
+	echo "your registration was sucessfully done.<br>";
+	echo  "your password is ".$user['password'];   
 
-foreach ($content as $line):
-	echo '<p> ' . $line . "</p>\n";
-endforeach;
 ?>
